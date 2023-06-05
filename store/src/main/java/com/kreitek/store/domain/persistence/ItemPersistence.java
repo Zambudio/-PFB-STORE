@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemPersistence {
-
     List<Item> getAllItems();
-
     Page<Item> findAll(Pageable pageable, String filters);
 
     List<Item> getAllItemsByCategory(Long categoryId);
