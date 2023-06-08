@@ -21,3 +21,8 @@ spring:
     console:
       enabled: true
       path: /console
+
+  web-flux:
+    cors:
+      allowed-origins: "http://localhost:4200"
+      allowed-methods: "*"
