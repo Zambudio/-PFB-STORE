@@ -1,0 +1,37 @@
+<div class="container mt-5">
+    <table *ngIf="items.length > 0" class="table table-striped table-hover text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Imagen</th>
+                <th scope="col">Articulo</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Unidades</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Precio Total</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items" class="item-row">
+                <td>
+                    <img class="imgItem" [src]="'data:image/webp;base64,' + item.image" alt="imagen">
+                </td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.categoryName }}</td>
+                <td>{{ getQuantity(item.id!) }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ getTotalPrice(item.id!) }}</td>
+                <td>
+                    <button id="btnEditCategory" class="btn btn-primary btn-sm me-2" (click)="addCartItemQuantity(item.id!);">Añadir</button>
+                    <button id="btnEditCategory" class="btn btn-warning btn-sm me-2" (click)="subtractCartItemQuantity(item.id!);">Quitar</button>
+                    <button id="btnEditCategory" class="btn btn-danger btn-sm me-2" (click)="removeCartItem(item.id!);">Eliminar del carrito</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="totalPrice text-end mt-4">
+        <h4>Precio Total Carrito : <span class="text-danger">{{ totalPriceCart() }} € </span></h4>
+        <button *ngIf="cartItems.length > 0" id="btnPlaceOrder" class="btn btn-success mt-5" (click)="orderCart();">Tramitar Pedido</button>
+    </div>
+</div>
+

@@ -1,0 +1,85 @@
+<h1 class="mb-4 title">{{title}}</h1>
+<div class="container mt-5">
+<form>
+    <div class="row mb-4 form-content">
+        <!-- Name -->
+        <div class="form-group col-12 col-md-6">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" [(ngModel)]="nameFilter" name="name">
+        </div>
+        
+        <div class="form-group" class="col-12 col-md-3">
+            <label for="price">Precio</label>
+            <input type="number" class="form-control" [(ngModel)]="priceFilter" name="price">
+        </div>
+
+        <div class="col-12 col-md-3 d-flex align-items-end">
+            <button id="btnSearch" class="btn btn-secondary" (click)="searchByFilters();">Buscar</button>
+        </div>
+
+        <!-- Price -->
+
+    </div>
+</form>
+
+<div id="buttonCreateContainer" class="mb-3">
+    <button class="btn btn-primary" [routerLink]="['/items','new']">Nuevo Articulo</button>
+</div>
+
+<table *ngIf="items.length > 0" class="table table-striped table-hover text-center">
+    <thead class="thead-dark">
+        <th>Id</th>
+        <th>Imagen</th>
+        <th>Articulo</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of items" class="item-row">
+            <td>{{ item.id }}</td>
+            <td>
+                <img class="imgItem" [src]="'data:image/webp;base64,' + item.image" alt="imagen">
+            </td>
+            <td>
+                {{ item.name }}
+            </td>
+            <td>
+                {{ item.price }}
+            </td>
+            <td>
+                <button class="btn btn-primary btn-sm me-2" id="btnEditCategory" [routerLink]="['/items',item.id]">Editar</button>
+                <button class="btn btn-danger btn-sm me-2" id="btnDeleteCategory" data-bs-toggle="modal" data-bs-target="#askConfirmationDelete" (click)="prepareItemToDelete(item.id!);">Eliminar</button>
+                <button *ngIf="isUserLoggedIn()" class="btn btn-warning btn-sm me-2" id="btnFavoriteItem" (click)="markAsFavorite(item.id!);">
+                    {{ isFavorite(item.id!) ? 'Quitar favorito' : 'Favorito' }}
+                </button>
+                <button *ngIf="isUserLoggedIn()" class="btn btn-secondary btn-sm me-2" id="btnAddToCart" (click)="addToCart(item.id!);">Comprar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="botoneraPaginacion d-flex justify-content-between align-items-center my-3">
+    <button [disabled]="first" class="btn btn-secondary" (click)="previousPage()">Anterior</button>
+    <span>Pagina {{page+1}} de {{totalPages}} - Elementos totales: {{totalElements}}</span>
+    <button [disabled]="last" class="btn btn-secondary" (click)="nextPage()">Siguiente</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="askConfirmationDelete" tabindex="-1" aria-labelledby="askConfirmationDelete" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmacion de borrado</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           Desea eliminar el registro seleccionado ? Esta operacion no puede desacerse
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="deleteItem();">Eliminar</button>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

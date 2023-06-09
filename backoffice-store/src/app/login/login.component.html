@@ -1,0 +1,29 @@
+<h2>Iniciar sesión</h2>
+<form class="login-form" #loginForm="ngForm" (ngSubmit)="loginForm.valid && login()">
+  <div class="form-group">
+    <label for="loginUsername">Nombre de usuario:</label>
+    <input type="text" id="loginUsername" [(ngModel)]="loginUsername" name="loginUsername" required>
+    <div *ngIf="loginForm.submitted && loginForm.controls['loginUsername'].errors?.['required']" class="login-error error">
+      Se requiere nombre de usuario.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="loginPassword">Contraseña:</label>
+    <input type="password" id="loginPassword" [(ngModel)]="loginPassword" name="loginPassword" required>
+    <div *ngIf="loginForm.submitted && loginForm.controls['loginPassword'].errors?.['required']" class="login-error error">
+      Se requiere contraseña.
+    </div>
+  </div>
+  <div *ngIf="userNotFound" class="login-error">
+    El usuario no existe.
+  </div>
+  <div *ngIf="loginError" class="login-error">
+    Las credenciales no son válidas.
+  </div>
+  <button type="submit" class="submit-btn">Iniciar sesión</button>
+</form>
+
+<h2>¿No tienes cuenta?</h2>
+<div>
+  <button type="submit" class="register-btn" [routerLink]="['/register']">Registrarse</button>
+</div>

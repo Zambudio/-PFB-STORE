@@ -1,0 +1,80 @@
+<div class="page-container">
+  <div class="order-summary">
+    <h2>Resumen del pedido</h2>
+    <table *ngIf="items.length > 0" class="table table-striped table-hover text-center">
+      <thead class="thead-dark">
+          <tr>
+              <th scope="col">Imagen</th>
+              <th scope="col">Articulo</th>
+              <th scope="col">Categoria</th>
+              <th scope="col">Precio</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of items" class="item-row">
+              <td>
+                  <img class="imgItem" [src]="'data:image/webp;base64,' + item.image" alt="imagen">
+              </td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.categoryName }}</td>
+              <td>{{ item.price }}</td>
+          </tr>
+      </tbody>
+  </table>
+    <p><strong>Precio Total:</strong> $100</p>
+  </div>
+
+  <h2>Dirección</h2>
+  <form class="address-form" #addressForm="ngForm" (ngSubmit)="addressForm.valid && confirm()">
+    <div class="form-group">
+      <label for="firstName">Nombre:</label>
+      <input type="text" id="firstName" [(ngModel)]="firstName" name="firstName" required>
+      <div *ngIf="addressForm.submitted && addressForm.controls['firstName'].errors?.['required']" class="address-error error">
+        Se requiere nombre.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Apellidos:</label>
+      <input type="text" id="lastName" [(ngModel)]="lastName" name="lastName" required>
+      <div *ngIf="addressForm.submitted && addressForm.controls['lastName'].errors?.['required']" class="address-error error">
+        Se requieren apellidos.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="street">Calle:</label>
+      <input type="text" id="street" [(ngModel)]="street" name="street" required>
+      <div *ngIf="addressForm.submitted && addressForm.controls['street'].errors?.['required']" class="address-error error">
+        Se requiere calle.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="additionalInfo">Información adicional:</label>
+      <input type="text" id="additionalInfo" [(ngModel)]="additionalInfo" name="additionalInfo">
+    </div>
+    <div class="form-group">
+      <label for="postalCode">Código postal:</label>
+      <input type="text" id="postalCode" [(ngModel)]="postalCode" name="postalCode" required>
+      <div *ngIf="addressForm.submitted && addressForm.controls['postalCode'].errors?.['required']" class="address-error error">
+        Se requiere código postal.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city">Ciudad:</label>
+      <input type="text" id="city" [(ngModel)]="city" name="city" required>
+      <div *ngIf="addressForm.submitted && addressForm.controls['city'].errors?.['required']" class="address-error error">
+        Se requiere ciudad.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Teléfono:</label>
+      <input type="text" id="phoneNumber" [(ngModel)]="phoneNumber" name="phoneNumber" required>
+      <div *ngIf="addressForm.submitted && addressForm.controls['phoneNumber'].errors?.['required']" class="address-error error">
+        Se requiere número de teléfono.
+      </div>
+    </div>
+    <div *ngIf="addressError" class="address-error">
+      Error al guardar dirección.
+    </div>
+    <button type="submit" class="submit-btn">Confirmar Pedido</button>
+  </form>
+</div>

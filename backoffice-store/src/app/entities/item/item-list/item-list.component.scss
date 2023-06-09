@@ -1,0 +1,33 @@
+.title {
+    font-family: Arial, sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.form-content .form-group {
+    font-family: Arial, sans-serif;
+}
+
+thead {
+    background: #343a40;
+    color: #ffffff;
+}
+
+.imgItem {
+    width: 80px;
+}
+
+#buttonCreateContainer .btn {
+    width: 150px;
+    font-family: Arial, sans-serif;
+}
+
+.btn {
+    width: 100px;
+}
+
+.btn.btn-primary.btn-sm.me-2,
+.btn.btn-danger.btn-sm.me-2 {
+    width: auto;
+}
+

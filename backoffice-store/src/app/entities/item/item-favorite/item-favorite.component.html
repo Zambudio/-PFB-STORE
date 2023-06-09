@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <table *ngIf="items.length > 0" class="table table-striped table-hover text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Articulo</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items" class="item-row">
+                <td>{{ item.id }}</td>
+                <td>
+                    <img class="imgItem" [src]="'data:image/webp;base64,' + item.image" alt="imagen">
+                </td>
+                <td>
+                    {{ item.name }}
+                </td>
+                <td>
+                    {{ item.price }}
+                </td>
+                <td>
+                    <button id="btnEditCategory" [routerLink]="['/items',item.id]" class="btn btn-primary btn-sm me-2">Editar</button>
+                    <button *ngIf="isFavorite(item.id!)" id="btnRemoveFavorite" (click)="removeFromFavorite(item.id!)" class="btn btn-danger btn-sm me-2">Eliminar favorito</button>
+                    <button id="addToCard" (click)="addToCart(item.id!);" class="btn btn-secondary btn-sm me-2">Comprar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
